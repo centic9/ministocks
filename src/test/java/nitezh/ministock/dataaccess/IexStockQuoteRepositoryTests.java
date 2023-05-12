@@ -29,6 +29,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assume;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -49,10 +50,10 @@ public class IexStockQuoteRepositoryTests extends AbstractTestBase {
 
     @Before
     public void setUp() {
-        FxChangeRepository fxRepository = new FxChangeRepository();
         quoteRepository = new IexStockQuoteRepository(fxRepository);
     }
 
+    @Ignore("API call does not work any more")
     @Test
     public void retrieveQuotesAsJson() throws JSONException {
         // Skipif
@@ -60,10 +61,9 @@ public class IexStockQuoteRepositoryTests extends AbstractTestBase {
 
         // Arrange
         List<String> symbols = Arrays.asList("AAPL", "GOOG");
-        JSONArray json = null;
 
         // Act
-        json = this.quoteRepository.retrieveQuotesAsJson(new MockCache(), symbols);
+        JSONArray json = this.quoteRepository.retrieveQuotesAsJson(new MockCache(), symbols);
 
         // Assert
         assertNotNull(json);
@@ -80,6 +80,7 @@ public class IexStockQuoteRepositoryTests extends AbstractTestBase {
         assertEquals("Alphabet Inc.", googJson.optString("name"));
     }
 
+    @Ignore("API call does not work any more")
     @Test
     public void getQuotes() {
         // Skipif

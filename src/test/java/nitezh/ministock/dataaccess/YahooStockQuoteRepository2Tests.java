@@ -43,13 +43,12 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 
-public class YahooStockQuoteRepository2Tests {
+public class YahooStockQuoteRepository2Tests extends AbstractTestBase {
 
     private YahooStockQuoteRepository2 quoteRepository;
 
     @Before
     public void setUp() {
-        FxChangeRepository fxRepository = new FxChangeRepository();
         quoteRepository = new YahooStockQuoteRepository2(fxRepository);
     }
 
@@ -111,6 +110,7 @@ public class YahooStockQuoteRepository2Tests {
         assertEquals(3, stockQuotes.size());
 
         StockQuote aaplQuote = stockQuotes.get("AAPL");
+        assertNotNull(aaplQuote);
         assertEquals("AAPL", aaplQuote.getSymbol());
         assertTrue(Arrays.asList(
                 "NasdaqNM",
@@ -121,6 +121,7 @@ public class YahooStockQuoteRepository2Tests {
         assertEquals("Apple Inc.", aaplQuote.getName());
 
         StockQuote googQuote = stockQuotes.get("GOOG");
+        assertNotNull(googQuote);
         assertEquals("GOOG", googQuote.getSymbol());
         assertTrue(Arrays.asList(
                 "NasdaqNM",
@@ -131,6 +132,7 @@ public class YahooStockQuoteRepository2Tests {
         assertEquals("Alphabet Inc.", googQuote.getName());
 
         StockQuote djiQuote = stockQuotes.get("^DJI");
+        assertNotNull(djiQuote);
         assertEquals("^DJI", djiQuote.getSymbol());
         assertEquals("DJI", djiQuote.getExchange());
         assertEquals("Dow Jones Industrial Average", djiQuote.getName());

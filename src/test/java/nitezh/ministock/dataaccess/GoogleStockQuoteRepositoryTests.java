@@ -28,6 +28,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -42,8 +43,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 
-@SuppressWarnings("unused")
-public class GoogleStockQuoteRepositoryTests {
+public class GoogleStockQuoteRepositoryTests extends AbstractTestBase {
 
     private GoogleStockQuoteRepository googleRepository;
 
@@ -52,16 +52,14 @@ public class GoogleStockQuoteRepositoryTests {
         this.googleRepository = new GoogleStockQuoteRepository();
     }
 
-    public void retrieveDJIQuoteAsJson() {
+    @Ignore("API call does not work any more")
+    @Test
+    public void retrieveDJIQuoteAsJson() throws JSONException {
         // Arrange
         List<String> symbols = Collections.singletonList(".DJI");
-        JSONArray json = null;
 
         // Act
-        try {
-            json = googleRepository.retrieveQuotesAsJson(new MockCache(), symbols);
-        } catch (JSONException ignored) {
-        }
+        JSONArray json = googleRepository.retrieveQuotesAsJson(new MockCache(), symbols);
 
         // Assert
         assertNotNull(json);
@@ -72,16 +70,14 @@ public class GoogleStockQuoteRepositoryTests {
         assertEquals("INDEXDJX", djiJson.optString("e"));
     }
 
-    public void retrieveIXICQuoteAsJson() {
+    @Ignore("API call does not work any more")
+    @Test
+    public void retrieveIXICQuoteAsJson() throws JSONException {
         // Arrange
         List<String> symbols = Collections.singletonList(".IXIC");
-        JSONArray json = null;
 
         // Act
-        try {
-            json = googleRepository.retrieveQuotesAsJson(new MockCache(), symbols);
-        } catch (JSONException ignored) {
-        }
+        JSONArray json = googleRepository.retrieveQuotesAsJson(new MockCache(), symbols);
 
         // Assert
         assertNotNull(json);
@@ -92,6 +88,8 @@ public class GoogleStockQuoteRepositoryTests {
         assertEquals("INDEXNASDAQ", ixicJson.optString("e"));
     }
 
+    @Ignore("API call does not work any more")
+    @Test
     public void getQuotes() {
         // Arrange
         List<String> symbols = Arrays.asList(".DJI", ".IXIC");
@@ -103,10 +101,12 @@ public class GoogleStockQuoteRepositoryTests {
         assertEquals(2, stockQuotes.size());
 
         StockQuote djiQuote = stockQuotes.get(".DJI");
+        assertNotNull(djiQuote);
         assertEquals(".DJI", djiQuote.getSymbol());
         assertEquals("DJX", djiQuote.getExchange());
 
         StockQuote ixicQuote = stockQuotes.get(".IXIC");
+        assertNotNull(ixicQuote);
         assertEquals(".IXIC", ixicQuote.getSymbol());
         assertEquals("NASDAQ", ixicQuote.getExchange());
     }

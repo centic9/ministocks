@@ -28,6 +28,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -41,27 +43,23 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 
-@SuppressWarnings("unused")
-public class YahooStockQuoteRepositoryTests {
+public class YahooStockQuoteRepositoryTests extends AbstractTestBase {
 
     private YahooStockQuoteRepository yahooRepository;
 
     @Before
     public void setUp() {
-        FxChangeRepository fxRepository = new FxChangeRepository();
         yahooRepository = new YahooStockQuoteRepository(fxRepository);
     }
 
-    public void retrieveQuotesAsJson() {
+    @Ignore("API call does not work any more")
+    @Test
+    public void retrieveQuotesAsJson() throws JSONException {
         // Arrange
         List<String> symbols = Arrays.asList("AAPL", "GOOG");
-        JSONArray json = null;
 
         // Act
-        try {
-            json = this.yahooRepository.retrieveQuotesAsJson(new MockCache(), symbols);
-        } catch (JSONException ignored) {
-        }
+        JSONArray json = this.yahooRepository.retrieveQuotesAsJson(new MockCache(), symbols);
 
         // Assert
         assertNotNull(json);
@@ -78,6 +76,8 @@ public class YahooStockQuoteRepositoryTests {
         assertEquals("Alphabet Inc.", googJson.optString("name"));
     }
 
+    @Ignore("API call does not work any more")
+    @Test
     public void getQuotes() {
         // Arrange
         List<String> symbols = Arrays.asList("AAPL", "GOOG");
@@ -89,11 +89,13 @@ public class YahooStockQuoteRepositoryTests {
         assertEquals(2, stockQuotes.size());
 
         StockQuote aaplQuote = stockQuotes.get("AAPL");
+        assertNotNull(aaplQuote);
         assertEquals("AAPL", aaplQuote.getSymbol());
         assertTrue(Arrays.asList("NasdaqNM", "NMS").contains(aaplQuote.getExchange()));
         assertEquals("Apple Inc.", aaplQuote.getName());
 
         StockQuote googQuote = stockQuotes.get("GOOG");
+        assertNotNull(googQuote);
         assertEquals("GOOG", googQuote.getSymbol());
         assertTrue(Arrays.asList("NasdaqNM", "NMS").contains(googQuote.getExchange()));
         assertEquals("Alphabet Inc.", googQuote.getName());
