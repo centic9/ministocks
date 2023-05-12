@@ -32,7 +32,7 @@ import nitezh.ministock.mocks.MockCache;
 import static org.junit.Assert.assertNotNull;
 
 
-public class FxChangeRepositoryTests {
+public class FxChangeRepositoryTests extends AbstractTestBase {
 
     private FxChangeRepository fxRepository;
 
@@ -42,17 +42,14 @@ public class FxChangeRepositoryTests {
     }
 
     @Test
-    public void testRetrieveChangesAsJson() {
+    public void testRetrieveChangesAsJson() throws JSONException {
         // Arrange
         JSONObject json = null;
 
         // Act
-        try {
-            json = this.fxRepository.retrieveChangesAsJson(new MockCache());
-        } catch (JSONException ignored) {
-        }
+        json = this.fxRepository.retrieveChangesAsJson(new MockCache());
 
         // Assert
-        assertNotNull(json);
+        assertNotNull("Could not retrieve stock via FxChangeRepository", json);
     }
 }

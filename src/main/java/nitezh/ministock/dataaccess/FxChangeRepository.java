@@ -24,6 +24,8 @@
 
 package nitezh.ministock.dataaccess;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -68,6 +70,12 @@ public class FxChangeRepository {
     }
 
     public JSONObject retrieveChangesAsJson(Cache cache) throws JSONException {
-        return new JSONObject(UrlDataTools.getCachedUrlData(BASE_URL, cache, 86400));
+        String data = UrlDataTools.getCachedUrlData(BASE_URL, cache, 86400);
+        try {
+            return new JSONObject(data);
+        } catch (JSONException e) {
+            Log.e("TAG", "Failed to parse JSON: " + data, e);
+            throw e;
+        }
     }
 }

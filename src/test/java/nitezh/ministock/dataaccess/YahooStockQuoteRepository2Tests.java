@@ -54,7 +54,7 @@ public class YahooStockQuoteRepository2Tests {
     }
 
     @Test
-    public void retrieveQuotesAsJson() {
+    public void retrieveQuotesAsJson() throws JSONException {
         // Skipif
         Assume.assumeTrue(System.getenv("TRAVIS_CI") == null);
 
@@ -63,10 +63,7 @@ public class YahooStockQuoteRepository2Tests {
         JSONArray json = null;
 
         // Act
-        try {
-            json = this.quoteRepository.retrieveQuotesAsJson(new MockCache(), symbols);
-        } catch (JSONException ignored) {
-        }
+        json = this.quoteRepository.retrieveQuotesAsJson(new MockCache(), symbols);
 
         // Assert
         assertNotNull(json);

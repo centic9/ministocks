@@ -43,7 +43,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 
-public class IexStockQuoteRepositoryTests {
+public class IexStockQuoteRepositoryTests extends AbstractTestBase {
 
     private IexStockQuoteRepository quoteRepository;
 
@@ -54,7 +54,7 @@ public class IexStockQuoteRepositoryTests {
     }
 
     @Test
-    public void retrieveQuotesAsJson() {
+    public void retrieveQuotesAsJson() throws JSONException {
         // Skipif
         Assume.assumeTrue(System.getenv("TRAVIS_CI") == null);
 
@@ -63,10 +63,7 @@ public class IexStockQuoteRepositoryTests {
         JSONArray json = null;
 
         // Act
-        try {
-            json = this.quoteRepository.retrieveQuotesAsJson(new MockCache(), symbols);
-        } catch (JSONException ignored) {
-        }
+        json = this.quoteRepository.retrieveQuotesAsJson(new MockCache(), symbols);
 
         // Assert
         assertNotNull(json);
@@ -95,14 +92,17 @@ public class IexStockQuoteRepositoryTests {
         HashMap<String, StockQuote> stockQuotes = quoteRepository.getQuotes(new MockCache(), symbols);
 
         // Assert
+        assertNotNull("Could not retrieve stocks via IexStockQuoteRepository", stockQuotes);
         assertEquals(2, stockQuotes.size());
 
         StockQuote aaplQuote = stockQuotes.get("AAPL");
+        assertNotNull(aaplQuote);
         assertEquals("AAPL", aaplQuote.getSymbol());
         assertTrue(Arrays.asList("NasdaqNM", "NMS", "Nasdaq Global Select").contains(aaplQuote.getExchange()));
         assertEquals("Apple Inc.", aaplQuote.getName());
 
         StockQuote googQuote = stockQuotes.get("GOOG");
+        assertNotNull(googQuote);
         assertEquals("GOOG", googQuote.getSymbol());
         assertTrue(Arrays.asList("NasdaqNM", "NMS", "Nasdaq Global Select").contains(googQuote.getExchange()));
         assertEquals("Alphabet Inc.", googQuote.getName());

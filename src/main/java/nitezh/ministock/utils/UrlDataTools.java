@@ -71,8 +71,8 @@ public class UrlDataTools {
             connection.setRequestProperty("User-Agent", "Ministocks - Stocks Widget");
             InputStream inputStream = connection.getInputStream();
             return inputStreamToString(inputStream);
-        } catch (IOException ignored) {
-            Log.i("TAG", "getUrlData: " + ignored);
+        } catch (IOException e) {
+            Log.i("TAG", "getUrlData: " + e);
         }
         return null;
     }
