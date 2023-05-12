@@ -48,6 +48,9 @@ android {
     }
     namespace 'nitezh.ministock'
 
+    defaultConfig {
+        applicationId 'nitezh.ministock.dost'
+    }
 }
 
 dependencies {
