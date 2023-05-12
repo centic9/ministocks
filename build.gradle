@@ -56,7 +56,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api 'com.google.guava:guava:27.1-android'
-    testImplementation 'junit:junit:4.13-beta-2'
+    testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.json:json:20180813'
     testImplementation 'org.robolectric:robolectric:4.3-alpha-2'
 }
