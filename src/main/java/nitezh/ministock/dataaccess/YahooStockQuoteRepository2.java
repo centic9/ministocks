@@ -28,6 +28,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -53,7 +55,13 @@ public class YahooStockQuoteRepository2 {
                 if (!sQuery.toString().equals("")) {
                     sQuery.append(",");
                 }
-                sQuery.append(s);
+
+                try {
+                    //noinspection CharsetObjectCanBeUsed
+                    sQuery.append(URLEncoder.encode(s, "UTF-8"));
+                } catch (UnsupportedEncodingException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
         return String.format("%s&symbols=%s", BASE_URL, sQuery);
