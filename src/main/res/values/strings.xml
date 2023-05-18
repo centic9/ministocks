@@ -24,7 +24,7 @@
 
 <resources>
     <string name="app_name">Ministocks-DoSt</string>
-    <string name="prefs_name">nitezh.ministock_preferences</string>
+    <string name="prefs_name">nitezh.ministock.dost_preferences</string>
 
     <string-array name="background_entries">
         <item>Solid</item>
